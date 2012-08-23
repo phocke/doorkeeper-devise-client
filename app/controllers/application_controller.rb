@@ -8,4 +8,8 @@ class ApplicationController < ActionController::Base
   def doorkeeper_access_token
     @token ||= OAuth2::AccessToken.new(doorkeeper_oauth_client, current_user.doorkeeper_access_token) if current_user
   end
+  
+  def new_session_path *args 
+    new_user_session_path *args
+  end
 end

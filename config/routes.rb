@@ -1,4 +1,6 @@
 DoorkeeperDeviseClient::Application.routes.draw do
+  devise_for :users
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
@@ -50,9 +52,14 @@ DoorkeeperDeviseClient::Application.routes.draw do
   # just remember to delete public/index.html.
   #
   match 'explore/:api' => 'api#explore', :as => :explore_api
-  devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" } do
+  devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks", :sessions => "users/sessions" } do
     get 'sign_out', :to => 'users/sessions#destroy', :as => :destroy_user_session
   end
+  #devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks",  :sessions => 'users/sessions' }
+  #devise_scope :user do
+  #  get '/users/auth/:provider' => 'users/omniauth_callbacks#passthru'
+  #end
+
   root :to => 'home#index'
 
   # See how all your routes lay out with "rake routes"
